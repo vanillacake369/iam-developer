@@ -3,54 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>나도 개발자</title>
+
+    <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <!-- CSS -->
+    <link href="../style/team_style.css" rel="stylesheet"></link>
+    <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>
-      .container {
-        margin-top: 100px;
-      }
-
-      .row {
-        width: 1200px;
-      }
-
-      .add {
-        width: 1200px;
-        margin: 0px auto 50px auto;
-        padding-right: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: right;
-      }
-
-      .album {
-        width: 1200px;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .card {
-        margin: 0 10px 0 10px;
-      }
-    </style>
+    
     <script>
       function hey() {}
     </script>
+    <title>나도 개발자</title>
   </head>
   <body>
     <div class="container col-xxl-8 px-4 py-5">
       <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
           <img
-            src="logo.png"
+            src="../logo.png"
             class="d-block mx-lg-auto img-fluid"
             alt="Bootstrap Themes"
             width="400"
@@ -73,8 +49,11 @@
       <div class="card" style="width: 18rem">
         <img src="..." class="card-img-top" alt="..." />
         <div class="card-body">
-          <h5 class="card-title">팀원1</h5>
-          <p class="card-text">팀원 정보</p>
+          <h5 class="card-title">박준영</h5>
+          <div class="card-container">
+            <div class="card-text">mbti</div>
+            <div class="card-text">tmi</div>
+          </div>
           <div
             class="btn-group btn-group-sm"
             role="group"
