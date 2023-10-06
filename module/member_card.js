@@ -57,7 +57,7 @@ try {
                       <!-- link to ./member_modify.html -->
                       <a
                         class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!"
+                        href="#!" id="updatePageBtn"
                       >
                         <div
                           class="d-inline-block bi bi-pencil-square me-0"
@@ -66,7 +66,7 @@ try {
                       <!-- link to ./member_delete.html -->
                       <a
                         class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!"
+                        href="#!" id="deleteBtn"
                       >
                         <div class="d-inline-block bi bi-trash3 me-0"></div>
                       </a>
