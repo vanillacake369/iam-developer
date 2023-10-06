@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
+
+.row {
+  width: 1200px;
+}
+
+.add {
+  width: 1200px;
+  margin: 0px auto 50px auto;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.album {
+  width: 1200px;
+  margin: 20px auto 20px auto;
+}
+
+.card-container {
+  margin-bottom: 10px;
+}
+
+.card {
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
