@@ -9,6 +9,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db } from "./firebase/firebase_config.js";
 
+console.log(db);
+
 /* INSERT QUERY */
 $("#postingbtn").click(async function () {
   // receive data
@@ -29,4 +31,21 @@ $("#postingbtn").click(async function () {
   });
 
   console.log("Document written with ID : ", memberAdded.id);
+});
+
+/* Preview of Input Image file */
+var loadFile = function (event) {
+  var output = document.getElementById("member_img");
+
+  if (event.target.files && event.target.files[0]) {
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+      URL.revokeObjectURL(output.src); // free memory
+    };
+  }
+};
+
+const inputElement = document.getElementById("input_img");
+inputElement.addEventListener("change", (event) => {
+  loadFile(event);
 });
