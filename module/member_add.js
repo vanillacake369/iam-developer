@@ -31,6 +31,10 @@ $("#postingbtn").click(async function () {
   });
 
   console.log("Document written with ID : ", memberAdded.id);
+
+  alert("멤버 생성 완료");
+
+  window.location.replace("../view/member_card.html?id=" + memberAdded.id);
 });
 
 /* Preview of Input Image file */
