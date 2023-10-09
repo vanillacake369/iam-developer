@@ -29,19 +29,18 @@ var addMember = async function () {
       mbti: $("#mbti").val(),
       tmi: $("#tmi").val(),
     };
+    var imgFile = document.getElementById("input_img").files[0];
 
     /* Verification on input data */
-    if (isValidInput(key, member) === true) {
+    if (isValidInput(key, member) === true && imgFile) {
       const memberAdded = await addDoc(collection(db, "team"), member);
 
       console.log("Document written with ID : ", memberAdded.id);
 
       /* Save Image name of "User ID", into Firebase Storage */
-      var image = $("#input_img").val();
-
       var storageRef = ref(storage, "users/" + memberAdded.id);
 
-      var uploadMemberImg = uploadBytesResumable(storageRef, image);
+      var uploadMemberImg = uploadBytesResumable(storageRef, imgFile);
 
       alert("멤버 생성 완료");
 
@@ -55,11 +54,6 @@ var addMember = async function () {
   }
 };
 
-const submit = document.getElementById("submitBtn");
-submit.addEventListener("click", () => {
-  addMember();
-});
-
 /* Preview of Input Image file */
 var loadFile = function (event) {
   var output = document.getElementById("member_img");
@@ -72,7 +66,17 @@ var loadFile = function (event) {
   }
 };
 
-const inputElement = document.getElementById("input_img");
-inputElement.addEventListener("change", (event) => {
-  loadFile(event);
-});
+/* Add Event Listener */
+document.addEventListener("DOMContentLoaded", init, false);
+function init() {
+  /* "Preview" */
+  const inputElement = document.getElementById("input_img");
+  inputElement.addEventListener("change", (event) => {
+    loadFile(event);
+  });
+  /* "Submit" */
+  const submit = document.getElementById("submitBtn");
+  submit.addEventListener("click", () => {
+    addMember();
+  });
+}

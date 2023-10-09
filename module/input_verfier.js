@@ -7,8 +7,13 @@
 export var isValidInput = (keyArr, inputParam) => {
   var flag;
   keyArr.forEach((key) => {
-    if (inputParam[key] === undefined) flag = false;
+    if (isEmpty(inputParam[key])) flag = false;
+    else if (keyArr[keyArr.length - 1] === key || flag === false) return;
     else flag = true;
   });
   return flag;
 };
+
+function isEmpty(str) {
+  return !str || str.length === 0 || str === undefined;
+}
