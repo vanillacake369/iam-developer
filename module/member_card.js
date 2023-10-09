@@ -12,6 +12,7 @@ import { db } from "./firebase/firebase_config.js";
 
 /* GET QUERY */
 try {
+  /* member_card.html */
   /* get "id" parameter from url */
   const url_str = window.location.href;
   const url = new URL(url_str);

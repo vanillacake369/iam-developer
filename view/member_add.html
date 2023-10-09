@@ -74,7 +74,7 @@
           <div class="d-flex justify-content-end mb-4">
             <div class="d-flex justify-content-between mb-4">
               <!-- link to ./member_add.html -->
-              <a class="btn btn-primary px-4 py-3" href="#!">
+              <a class="btn btn-primary px-4 py-3" href="./member_add.html">
                 <div class="d-inline-block bi bi-plus-square me-0"></div>
               </a>
             </div>
@@ -89,102 +89,80 @@
                   <div class="d-flex align-items-center mb-4">
                     <div class="p-5">
                       <!-- Input Personal Info -->
-                      <input type="file" accept="image/*" id ="input_img">
-                      <img id="member_img"/>
-                      <div class="input-group input-group-lg mb-2">
-                        <span class="input-group-text" id="inputGroup-sizing-lg"
-                          >이름</span
-                        >
+                      <!-- <form action="./member_add_copy.html" method="get" id="addMemberForm"> -->
+                      <input
+                        type="file"
+                        accept="image/*"
+                        id="input_img"
+                        name="image"
+                      />
+                      <img id="member_img" />
+                      <div class="form-floating mb-2">
                         <input
-                          type="text"
+                          type="TEXT"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
                           id="name"
+                          placeholder="NAME"
                         />
+                        <label for="floatingInput">NAME</label>
                       </div>
-                      <div class="input-group input-group-lg mb-2">
-                        <span class="input-group-text" id="inputGroup-sizing-lg"
-                          >MBTI</span
-                        >
+                      <div class="form-floating mb-2">
                         <input
-                          type="text"
+                          type="TEXT"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
                           id="mbti"
+                          placeholder="MBTI"
                         />
+                        <label for="floatingPassword">MBTI</label>
                       </div>
-                      <div class="input-group input-group-lg mb-2">
-                        <span class="input-group-text" id="inputGroup-sizing-lg"
-                          >강점</span
-                        >
+                      <div class="form-floating mb-2">
                         <input
-                          type="text"
+                          type="TEXT"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
                           id="strength"
+                          placeholder="STRENGTH"
                         />
+                        <label for="floatingInput">STRENGTH</label>
                       </div>
-                      <div class="input-group input-group-lg mb-2">
-                        <span class="input-group-text" id="inputGroup-sizing-lg"
-                          >업무 스타일</span
-                        >
+                      <div class="form-floating mb-2">
                         <input
-                          type="text"
+                          type="TEXT"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
                           id="work_style"
+                          placeholder="WORK_STYLE"
                         />
+                        <label for="floatingPassword">WORK_STYLE</label>
                       </div>
-                      <div class="input-group input-group-lg mb-2">
-                        <span class="input-group-text" id="inputGroup-sizing-lg"
-                          >블로그 주소</span
-                        >
+                      <div class="form-floating mb-2">
                         <input
-                          type="text"
+                          type="EMAIL"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
                           id="blog_url"
+                          placeholder="abd@nbcamp.com"
                         />
+                        <label for="floatingPassword">BLOG_URI</label>
                       </div>
-                      </div>
-                      <div class="input-group input-group-lg mb-2">
-                        <span class="input-group-text" id="inputGroup-sizing-lg"
-                          >TMI</span
-                        >
+                      <div class="form-floating mb-2">
                         <input
-                          type="text"
+                          type="TEXT"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
                           id="tmi"
+                          placeholder="TMI"
                         />
+                        <label for="floatingPassword">TMI</label>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-primary" id="postingbtn">기록하기</button>
                   </div>
-                  <div class="d-flex justify-content-end mb-4">
+                  <!-- SUBMIT -->
+                  <div class="d-flex justify-content-end mb-4 me-4">
                     <div class="d-flex justify-content-between">
-                      <!-- link to ./member_modify.html -->
-                      <a
-                        class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!"
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-lg"
+                        id="submitBtn"
                       >
-                        <div
-                          class="d-inline-block bi bi-pencil-square me-0"
-                        ></div>
-                      </a>
-                      <!-- link to ./member_delete.html -->
-                      <a
-                        class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!"
-                      >
-                        <div class="d-inline-block bi bi-trash3 me-0"></div>
-                      </a>
+                        멤버 생성
+                      </button>
                     </div>
                   </div>
                 </div>
