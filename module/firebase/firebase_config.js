@@ -2,17 +2,18 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+import { key } from "./firebase_key.js";
 
 // Firebase 구성 정보 설정
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAqawipQY7PqRA7NMRL76E7pOi5dtIRk5Q",
-  authDomain: "iam-dev-623b3.firebaseapp.com",
-  projectId: "iam-dev-623b3",
-  storageBucket: "iam-dev-623b3.appspot.com",
-  messagingSenderId: "145871608299",
-  appId: "1:145871608299:web:9925c338c21f80c66261ae",
-  measurementId: "G-W79BXK25S1",
+  apiKey: key.apiKey,
+  authDomain: key.authDomain,
+  projectId: key.projectId,
+  storageBucket: key.storageBucket,
+  messagingSenderId: key.messagingSenderId,
+  appId: key.appId,
+  measurementId: key.measurementId,
 };
 
 // Firebase 인스턴스 초기화
