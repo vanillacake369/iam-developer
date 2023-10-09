@@ -8,7 +8,7 @@ import {
   query,
   where,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { db } from "./firebase/firebase_config.js";
+import { db, storage } from "./firebase/firebase_config.js";
 
 /* GET QUERY */
 try {
@@ -27,32 +27,32 @@ try {
   /* return with parsed data with html template */
   if (querySnapshot.exists()) {
     let mem_info_row = querySnapshot.data();
-    console.log(querySnapshot.id, " => ", mem_info_row);
     let name = mem_info_row["name"];
     let tmi = mem_info_row["tmi"];
+    let mbti = mem_info_row["mbti"];
     let strength = mem_info_row["strength"];
     let work_style = mem_info_row["work_style"];
     let blog_url = mem_info_row["blog_url"];
-    console.log(name);
-    console.log(tmi);
-    console.log(strength);
-    console.log(work_style);
-    console.log(blog_url);
+    let image_url = " ";
+
     let temp_html = `<div class="card-body p-0">
                     <div class="d-flex align-items-center mb-4">
                       <div class="p-5">
-                        <h2 class="fw-bolder">${name}</h2>
+                        <h2 class="fw-bolder">NAME : ${name}</h2>
                         <p>
-                        ${tmi}
+                        MBTI : ${mbti}
                         </p>
                         <p>
-                        ${strength}
+                        TMI : ${tmi}
                         </p>
                         <p>
-                        ${work_style}
+                        STRENGTH : ${strength}
                         </p>
                         <p>
-                        ${blog_url}
+                        WORK STYLE : ${work_style}
+                        </p>
+                        <p>
+                        BLOG URL : ${blog_url}
                         </p>
                       </div>
                       <img

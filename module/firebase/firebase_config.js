@@ -1,6 +1,7 @@
 // Firebase SDK 라이브러리 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
 // Firebase 구성 정보 설정
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -16,6 +17,8 @@ const firebaseConfig = {
 
 // Firebase 인스턴스 초기화
 const app = initializeApp(firebaseConfig);
+
+const storage = getStorage(app);
 const db = getFirestore(app);
 
-export { db };
+export { db, storage };

@@ -7,45 +7,51 @@ import {
   query,
   where,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { db } from "./firebase/firebase_config.js";
+import {
+  ref,
+  uploadBytesResumable,
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+import { db, storage } from "./firebase/firebase_config.js";
 import { getSearchParameters } from "./url_parser.js";
 import { isValidInput } from "./input_verfier.js";
 
-const key = [
-  "name",
-  "mbti",
-  "strength",
-  "work_style",
-  "blog_url",
-  "image",
-  "tmi",
-];
+const key = ["name", "mbti", "strength", "work_style", "blog_url", "tmi"];
 
 /* INSERT QUERY */
 var addMember = async function () {
-  /* Make Member Entity {key : value} from  inputs(O) ~~GET request~~(X) */
-  var member = {
-    image: $("#input_img").val(),
-    name: $("#name").val(),
-    strength: $("#strength").val(),
-    work_style: $("#work_style").val(),
-    blog_url: $("#blog_url").val(),
-    mbti: $("#mbti").val(),
-    tmi: $("#tmi").val(),
-  };
+  try {
+    /* Make Member Entity {key : value} from  inputs(O) ~~GET request~~(X) */
+    var member = {
+      name: $("#name").val(),
+      strength: $("#strength").val(),
+      work_style: $("#work_style").val(),
+      blog_url: $("#blog_url").val(),
+      mbti: $("#mbti").val(),
+      tmi: $("#tmi").val(),
+    };
 
-  /* Verification on input data */
-  if (isValidInput(key, member) === true) {
-    const memberAdded = await addDoc(collection(db, "team"), member);
+    /* Verification on input data */
+    if (isValidInput(key, member) === true) {
+      const memberAdded = await addDoc(collection(db, "team"), member);
 
-    console.log("Document written with ID : ", memberAdded.id);
+      console.log("Document written with ID : ", memberAdded.id);
 
-    alert("멤버 생성 완료");
+      /* Save Image name of "User ID", into Firebase Storage */
+      var image = $("#input_img").val();
 
-    window.location.replace("../view/member_card.html?id=" + memberAdded.id);
-  } else {
+      var storageRef = ref(storage, "users/" + memberAdded.id);
+
+      var uploadMemberImg = uploadBytesResumable(storageRef, image);
+
+      alert("멤버 생성 완료");
+
+      window.location.replace("../view/member_card.html?id=" + memberAdded.id);
+    } else {
+      throw new Error("모든 멤버 정보가 입력되지 않았습니다.");
+    }
+  } catch (e) {
     alert("모든 멤버 정보가 입력되지 않았습니다.");
-    throw new Error("모든 멤버 정보가 입력되지 않았습니다.");
+    console.error(e);
   }
 };
 
