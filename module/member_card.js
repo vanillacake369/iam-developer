@@ -1,16 +1,9 @@
 import {
-  collection,
-  addDoc,
-  setDoc,
   getDoc,
-  getDocs,
   doc,
-  query,
-  where,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {
   ref,
-  uploadBytesResumable,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 import { db, storage } from "./firebase/firebase_config.js";
@@ -23,10 +16,13 @@ try {
   const id = url.searchParams.get("id");
 
   /* make a select query */
-  var q = await doc(db, "team", id);
+  const q = await doc(db, "team", id);
+
+  /* access to storage ref */
+  const storageRef = ref(storage, "users/" + id);
 
   /* request a query */
-  var querySnapshot = await getDoc(q);
+  const querySnapshot = await getDoc(q);
 
   /* return with parsed data with html template */
   if (querySnapshot.exists()) {
@@ -37,7 +33,9 @@ try {
     let strength = mem_info_row["strength"];
     let work_style = mem_info_row["work_style"];
     let blog_url = mem_info_row["blog_url"];
-    let image_url = " ";
+    let image_url = await getDownloadURL(storageRef);
+
+    console.log("image_url : " + image_url);
 
     let temp_html = `<div class="card-body p-0">
                     <div class="d-flex align-items-center mb-4">
@@ -61,15 +59,12 @@ try {
                       </div>
                       <img
                         class="img-fluid"
-                        src="https://dummyimage.com/300x400/343a40/6c757d"
+                        src=${image_url}
+                        width="300"
+                        height="400"
                         alt="..."
                       />
                     </div>
-                    <img
-                      class="img-fluid"
-                      src="https://dummyimage.com/300x400/343a40/6c757d"
-                      alt="..."
-                    />
                   </div>
                   <div class="d-flex justify-content-end mb-4">
                     <div class="d-flex justify-content-between">
