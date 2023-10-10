@@ -1,32 +1,29 @@
 import {
-  collection,
-  addDoc,
-  setDoc,
   getDoc,
-  getDocs,
   doc,
-  query,
-  where,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {
   ref,
-  uploadBytesResumable,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 import { db, storage } from "./firebase/firebase_config.js";
+import { deleteById } from "./member_delete.js";
+
+/* get "id" parameter from url */
+const url_str = window.location.href;
+const url = new URL(url_str);
+const id = url.searchParams.get("id");
 
 /* GET QUERY */
 try {
-  /* get "id" parameter from url */
-  const url_str = window.location.href;
-  const url = new URL(url_str);
-  const id = url.searchParams.get("id");
-
   /* make a select query */
-  var q = await doc(db, "team", id);
+  const q = await doc(db, "team", id);
+
+  /* access to storage ref */
+  const storageRef = ref(storage, "users/" + id);
 
   /* request a query */
-  var querySnapshot = await getDoc(q);
+  const querySnapshot = await getDoc(q);
 
   /* return with parsed data with html template */
   if (querySnapshot.exists()) {
@@ -37,7 +34,9 @@ try {
     let strength = mem_info_row["strength"];
     let work_style = mem_info_row["work_style"];
     let blog_url = mem_info_row["blog_url"];
-    let image_url = " ";
+    let image_url = await getDownloadURL(storageRef);
+
+    console.log("image_url : " + image_url);
 
     let temp_html = `<div class="card-body p-0">
                     <div class="d-flex align-items-center mb-4">
@@ -61,22 +60,19 @@ try {
                       </div>
                       <img
                         class="img-fluid"
-                        src="https://dummyimage.com/300x400/343a40/6c757d"
+                        src=${image_url}
+                        width="300"
+                        height="400"
                         alt="..."
                       />
                     </div>
-                    <img
-                      class="img-fluid"
-                      src="https://dummyimage.com/300x400/343a40/6c757d"
-                      alt="..."
-                    />
                   </div>
                   <div class="d-flex justify-content-end mb-4">
                     <div class="d-flex justify-content-between">
-                      <!-- link to ./member_modify.html -->
+                      <!-- link to ./member_update.html -->
                       <a
                         class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!" id="updatePageBtn"
+                        href="./member_update.html?id=${id}" id="updatePageBtn"
                       >
                         <div
                           class="d-inline-block bi bi-pencil-square me-0"
@@ -85,7 +81,7 @@ try {
                       <!-- link to ./member_delete.html -->
                       <a
                         class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!" id="deleteBtn"
+                        href="#" id="deleteBtn"
                       >
                         <div class="d-inline-block bi bi-trash3 me-0"></div>
                       </a>
@@ -93,6 +89,13 @@ try {
                   </div>`;
     $("#card-container").append(temp_html);
   }
+
+  /* Add "DELETE" event listener */
+  const deleteElement = document.getElementById("deleteBtn");
+  deleteElement.addEventListener("click", (event) => {
+    deleteById(id);
+    console.log("클릭되었다");
+  });
 } catch (e) {
   console.log(e);
 }

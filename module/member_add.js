@@ -30,7 +30,8 @@ var addMember = async function () {
       mbti: $("#mbti").val(),
       tmi: $("#tmi").val(),
     };
-    var imgFile = document.getElementById("input_img").files[0];
+
+    const imgFile = document.getElementById("input_img").files[0];
 
     /* Verification on input data */
     if (isValidInput(key, member) === true && imgFile) {
@@ -39,9 +40,9 @@ var addMember = async function () {
       console.log("Document written with ID : ", memberAdded.id);
 
       /* Save Image name of "User ID", into Firebase Storage */
-      var storageRef = ref(storage, "users/" + memberAdded.id);
+      const storageRef = ref(storage, "users/" + memberAdded.id);
 
-      var uploadMemberImg = uploadBytesResumable(storageRef, imgFile);
+      const uploadResult = await uploadBytesResumable(storageRef, imgFile);
 
       alert("멤버 생성 완료");
 
