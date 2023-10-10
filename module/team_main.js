@@ -1,25 +1,34 @@
 // Firebase SDK 라이브러리 가져오기
 import {
   collection,
-  addDoc,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {
+  ref,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 import { db, storage } from "./firebase/firebase_config.js";
 
+/* SELECT ALL MEMBERS */
 let docs = await getDocs(collection(db, "team"));
+/* FOR EACH MEMBERS */
 docs.forEach(async (doc) => {
   let row = doc.data();
   let docsId = doc.id;
-
   let name = row["name"];
   let mbti = row["mbti"];
   let tmi = row["tmi"];
+
+  /* Access to storage ref */
+  const storageRef = ref(storage, "users/" + docsId);
   let image_url;
   try {
     image_url = await getDownloadURL(storageRef);
   } catch (err) {
     image_url = "https://dummyimage.com/300x400/343a40/6c757d";
   }
+
+  console.log(image_url);
 
   let temp_html = `
   <div class="col">
@@ -35,8 +44,6 @@ docs.forEach(async (doc) => {
     </div>
   </div>`;
   $("#create").append(temp_html);
-
-  console.log(docsId);
 
   // 각 카드에 클릭 이벤트 핸들러 추가
   $(`#membercard-${docsId}`).click(function () {
