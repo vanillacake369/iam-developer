@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
-import { key } from "./firebase_key.js";
+import { key } from "../../firebase/firebase_key.js";
 
 // Firebase 구성 정보 설정
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional

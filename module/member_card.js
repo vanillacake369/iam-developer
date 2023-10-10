@@ -8,11 +8,15 @@ import {
   query,
   where,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 import { db, storage } from "./firebase/firebase_config.js";
 
 /* GET QUERY */
 try {
-  /* member_card.html */
   /* get "id" parameter from url */
   const url_str = window.location.href;
   const url = new URL(url_str);
@@ -43,9 +47,6 @@ try {
                         MBTI : ${mbti}
                         </p>
                         <p>
-                        TMI : ${tmi}
-                        </p>
-                        <p>
                         STRENGTH : ${strength}
                         </p>
                         <p>
@@ -53,6 +54,9 @@ try {
                         </p>
                         <p>
                         BLOG URL : ${blog_url}
+                        </p>
+                        <p>
+                        TMI : ${tmi}
                         </p>
                       </div>
                       <img
