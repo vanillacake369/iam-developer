@@ -3,124 +3,81 @@ import {
   addDoc,
   setDoc,
   getDocs,
-  deleteDoc,
+  doc,
+  query,
+  where,
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { db } from "./firebase/firebase_config.js";
+import {
+  ref,
+  uploadBytesResumable,
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+import { db, storage } from "./firebase/firebase_config.js";
+import { getSearchParameters } from "./url_parser.js";
+import { isValidInput } from "./input_verfier.js";
 
-/* GET QUERY */
-
-try {
-  const team = collection(db, "team");
-  const docs = await getDocs(team);
-  // const docs = await getDocs(collection(db, "member"));
-  docs.forEach((doc) => {
-    let row = doc.data();
-    console.log(row);
-
-    let name = row["#name"];
-    let tmi = row["#tmi"];
-    let mbti = row["#mbti"];
-    let strength = row["#strength"];
-
-    let temp_html = `
-      <div class="col">
-          <div class="card h-100">
-          <img
-              src="${name}"
-              class="card-img-top"
-              alt="..."
-          />
-          <div class="card-body">
-              <h5 class="card-tmi">${tmi}</h5>
-              <p class="card-text">${strength}</p>
-          </div>
-          <div class="card-footer">
-              <small class="text-muted">${mbti}</small>
-          </div>
-          </div>
-      </div>
-      `;
-    $("#card").append(temp_html);
-  });
-} catch (e) {
-  console.log(e);
-}
+const key = ["name", "mbti", "strength", "work_style", "blog_url", "tmi"];
 
 /* INSERT QUERY */
-$("#postingbtn").click(async function () {
-  // receive data
-  const image = $("#image").val();
-  const title = $("#title").val();
-  const date = $("#date").val();
-  const info = $("#info").val();
-  const received_data = {
-    album_image: image,
-    album_title: title,
-    album_date: date,
-    album_info: info,
-  };
-  // insert query
+var addMember = async function () {
   try {
-    await addDoc(collection(db, "albums"), { received_data });
-  } catch (e) {
-    console.log("error occurred");
-    console.log(e);
-  }
+    /* Make Member Entity {key : value} from  inputs(O) ~~GET request~~(X) */
+    var member = {
+      name: $("#name").val(),
+      strength: $("#strength").val(),
+      work_style: $("#work_style").val(),
+      blog_url: $("#blog_url").val(),
+      mbti: $("#mbti").val(),
+      tmi: $("#tmi").val(),
+    };
+    var imgFile = document.getElementById("input_img").files[0];
 
-  // alert to user
-  alert("INSERT COMPLETED");
+    /* Verification on input data */
+    if (isValidInput(key, member) === true && imgFile) {
+      const memberAdded = await addDoc(collection(db, "team"), member);
 
-  // reload
-  window.location.reload();
-});
+      console.log("Document written with ID : ", memberAdded.id);
 
-/* GET AIR CONDITION FROM OPEN API */
-let url =
-  "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99";
-fetch(url)
-  .then((res) => res.json())
-  .then((data) => {
-    let firstLowGu = data["RealtimeCityAir"]["row"][0];
-    let firstLowGuMiseVal = firstLowGu["IDEX_MVL"];
-    let conditionByMiseVal;
-    if (firstLowGuMiseVal >= 70) {
-      conditionByMiseVal = "<span>수치가 높아요</span>";
+      /* Save Image name of "User ID", into Firebase Storage */
+      var storageRef = ref(storage, "users/" + memberAdded.id);
+
+      var uploadMemberImg = uploadBytesResumable(storageRef, imgFile);
+
+      alert("멤버 생성 완료");
+
+      window.location.replace("../view/member_card.html?id=" + memberAdded.id);
     } else {
-      conditionByMiseVal = "<span>정상이예요</span>";
+      throw new Error("모든 멤버 정보가 입력되지 않았습니다.");
     }
+  } catch (e) {
+    alert("모든 멤버 정보가 입력되지 않았습니다.");
+    console.error(e);
+  }
+};
 
-    $("#mise").append(conditionByMiseVal);
+/* Preview of Input Image file */
+var loadFile = function (event) {
+  var output = document.getElementById("member_img");
+
+  if (event.target.files && event.target.files[0]) {
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+      URL.revokeObjectURL(output.src); // free memory
+    };
+  }
+};
+
+/* Add Event Listener */
+document.addEventListener("DOMContentLoaded", init, false);
+function init() {
+  /* "Preview" */
+  const inputElement = document.getElementById("input_img");
+  inputElement.addEventListener("change", (event) => {
+    loadFile(event);
   });
-
-function openClose() {
-  //   alert("안녕");
-  console.log($("#postbox"));
-  $("#postbox").toggle();
-}
-
-function insertInfo() {
-  let image = $("#image").val();
-  let title = $("#title").val();
-  let date = $("#date").val();
-  let info = $("#info").val();
-
-  let temp_html = `
-    <div class="col">
-        <div class="card h-100">
-        <img
-            src="${image}"
-            class="card-img-top"
-            alt="..."
-        />
-        <div class="card-body">
-            <h5 class="card-title">${title}</h5>
-            <p class="card-text">${info}</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">${date}</small>
-        </div>
-        </div>
-    </div>
-    `;
-  $("#card").append(temp_html);
+  /* "Submit" */
+  const submit = document.getElementById("submitBtn");
+  submit.addEventListener("click", () => {
+    addMember();
+  });
 }
