@@ -1,31 +1,30 @@
 // Firebase SDK 라이브러리 가져오기
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {
   collection,
   addDoc,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { key } from "../firebase/firebase_key.js";
-
-// Firebase 인스턴스 초기화
-const app = initializeApp(key);
-const db = getFirestore(app);
+import { db, storage } from "./firebase/firebase_config.js";
 
 let docs = await getDocs(collection(db, "team"));
-docs.forEach((doc) => {
+docs.forEach(async (doc) => {
   let row = doc.data();
   let docsId = doc.id;
 
-  let image = row["image"];
   let name = row["name"];
   let mbti = row["mbti"];
   let tmi = row["tmi"];
+  let image_url;
+  try {
+    image_url = await getDownloadURL(storageRef);
+  } catch (err) {
+    image_url = "https://dummyimage.com/300x400/343a40/6c757d";
+  }
 
   let temp_html = `
   <div class="col">
     <div class="card" style="width: 18rem" id="membercard-${docsId}">
-      <img src="${image}" class="card-img-top" alt="..." />
+      <img src="${image_url}" class="card-img-top" width="300" height"400" alt="..."/>
       <div class="card-body">
         <h5 class="card-title" id="name">${name}</h5>
         <div class="card-container">
