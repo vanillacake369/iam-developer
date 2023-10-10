@@ -55,12 +55,12 @@ docs.forEach(async (doc) => {
     window.location.href = url;
 
     // 현재 페이지의 URL에서 쿼리 문자열을 가져오기
-    const queryString = window.location.search;
+    // const queryString = window.location.search;
 
     // URL 매개변수에서 문서 ID 추출
-    const urlParams = new URLSearchParams(queryString);
-    const docId = urlParams.get("id");
+    // const urlParams = new URLSearchParams(queryString);
+    // const docId = urlParams.get("id");
 
-    console.log(docId);
+    // console.log(docId);
   });
 });
