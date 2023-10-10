@@ -14,13 +14,12 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
-	uploadBytes,
+  uploadBytes,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 import { db, storage } from "./firebase/firebase_config.js";
 // 페이지 로드 후 기존 데이터 받기
 
 try {
-
   /* make a select query */
   const url_str = window.location.href;
   const url = new URL(url_str);
@@ -28,7 +27,6 @@ try {
 
   // 스토리지 참조값 만들기
   const storageRef = ref(storage, "users/" + id);
-  
 
   let image_url;
   try {
@@ -38,12 +36,9 @@ try {
   }
 
   var q = await doc(db, "team", id);
-  console.log(q)
   /* request a query */
   var querySnapshot = await getDoc(q);
-  console.log(querySnapshot)
   let mem_info_row = querySnapshot.data();
-  console.log(mem_info_row)
 
   let name = mem_info_row["name"];
   let tmi = mem_info_row["tmi"];
@@ -91,6 +86,8 @@ try {
         src="${image_url}"
         alt="..."
         id="u_img"
+        width="300"
+        height="auto"
       />
     </div>
     <div class="d-flex justify-content-end mb-4"
@@ -108,15 +105,11 @@ try {
         </a>
       </div>
     </div>
-  `
+  `;
   $("#updateContent").append(temp_html);
-
-    
-
 } catch (error) {
-  console.log(error)
+  console.log(error);
 }
-
 
 // 정보수정 버튼 클릭 시
 $("#updateBtn").click(async function () {
@@ -129,45 +122,39 @@ $("#updateBtn").click(async function () {
   const url_str = window.location.href;
   const url = new URL(url_str);
   const id = url.searchParams.get("id");
-  const team = doc(db, 'team', id);
+  const team = doc(db, "team", id);
 
-  let name = $('#u_name').val();
-  let mbti = $('#u_mbti').val();
-  let strength = $('#u_strength').val();
-  let work_style = $('#u_workStyle').val();
-  let blog_url = $('#u_blogUrl').val();
-  let tmi = $('#u_tmi').val();
-  let img = $('#u_img').val();
+  let name = $("#u_name").val();
+  let mbti = $("#u_mbti").val();
+  let strength = $("#u_strength").val();
+  let work_style = $("#u_workStyle").val();
+  let blog_url = $("#u_blogUrl").val();
+  let tmi = $("#u_tmi").val();
+  let img = $("#u_img").val();
 
+  await setDoc(
+    team,
+    {
+      name: name,
+      mbti: mbti,
+      strength: strength,
+      work_style: work_style,
+      blog_url: blog_url,
+      tmi: tmi,
+      img: img,
+    },
+    { merge: true }
+  );
 
-  await setDoc(team, {
-    name: name,
-    mbti: mbti,
-    strength: strength,
-    work_style: work_style,
-    blog_url: blog_url,
-    tmi: tmi,
-    img: img,
-  }, { merge: true });
-
-  const MemberUpdate = doc(db, "team", id);
-
-  console.log(MemberUpdate)
-
-  // 스토리지 참조값 만들기
-  const storageRef = ref(storage, "users/" + id); 
   // 이미지 파일 가져오기
   const imgFile = document.getElementById("input_img").files[0];
-
-  // 이미지 덮어씌우기
-  const uploadTask = await uploadBytes(storageRef, imgFile);
-
+  if (imgFile !== undefined && imgFile.size > 0) {
+    // 스토리지 참조값 만들기
+    const storageRef = ref(storage, "users/" + id);
+    // 이미지 덮어씌우기
+    const uploadTask = await uploadBytes(storageRef, imgFile);
+  }
 
   alert("수정되었습니다.");
   location.href = "team_main.html";
-
-
-
-
 });
-
