@@ -15,7 +15,7 @@
     <link href="../style/team_style.css" rel="stylesheet" />
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    
     <script type="module">
       // Firebase SDK 라이브러리 가져오기
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -78,14 +78,14 @@
           const url = `member_card.html?id=${desiredDocId}`;
           window.location.href = url;
 
-          // 현재 페이지의 URL에서 쿼리 문자열을 가져오기
-          const queryString = window.location.search;
+          // // 현재 페이지의 URL에서 쿼리 문자열을 가져오기
+          // const queryString = window.location.search;
 
-          // URL 매개변수에서 문서 ID 추출
-          const urlParams = new URLSearchParams(queryString);
-          const docId = urlParams.get("id");
+          // // URL 매개변수에서 문서 ID 추출
+          // const urlParams = new URLSearchParams(queryString);
+          // const docId = urlParams.get("id");
 
-          console.log(docId);
+          // console.log(docId);
         });
       });
     </script>
@@ -117,7 +117,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        onclick="window.open('./member_add.html','팀추가팝업창','width=' + screen.width + ',height=' + screen.height + ',left=0,top=0,location=center,scrollbars=yes');"
+        onclick="window.open('./member_add.html');"
       >
         등록하기
       </button>

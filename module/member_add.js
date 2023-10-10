@@ -6,6 +6,7 @@ import {
   doc,
   query,
   where,
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {
   ref,

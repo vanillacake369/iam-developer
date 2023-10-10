@@ -65,25 +65,30 @@ try {
                         alt="..."
                       />
                     </div>
-                    <div class="d-flex justify-content-end mb-4">
-                      <div class="d-flex justify-content-between">
-                        <!-- link to ./member_modify.html -->
-                        <a
-                          class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                          href="#!"
-                        >
-                          <div
-                            class="d-inline-block bi bi-pencil-square me-0"
-                          ></div>
-                        </a>
-                        <!-- link to ./member_delete.html -->
-                        <a
-                          class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                          href="#!"
-                        >
-                          <div class="d-inline-block bi bi-trash3 me-0"></div>
-                        </a>
-                      </div>
+                    <img
+                      class="img-fluid"
+                      src="https://dummyimage.com/300x400/343a40/6c757d"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="d-flex justify-content-end mb-4">
+                    <div class="d-flex justify-content-between">
+                      <!-- link to ./member_modify.html -->
+                      <a
+                        class="btn btn-primary mx-2 px-4 py-3 hoverButton"
+                        href="#!" id="updatePageBtn"
+                      >
+                        <div
+                          class="d-inline-block bi bi-pencil-square me-0"
+                        ></div>
+                      </a>
+                      <!-- link to ./member_delete.html -->
+                      <a
+                        class="btn btn-primary mx-2 px-4 py-3 hoverButton"
+                        href="#!" id="deleteBtn"
+                      >
+                        <div class="d-inline-block bi bi-trash3 me-0"></div>
+                      </a>
                     </div>
                   </div>`;
     $("#card-container").append(temp_html);
