@@ -6,10 +6,7 @@ import {
   addDoc,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-// Firebase 인스턴스 초기화
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db, storage } from "./firebase/firebase_config.js";
 
 let docs = await getDocs(collection(db, "team"));
 docs.forEach((doc) => {
@@ -41,19 +38,19 @@ docs.forEach((doc) => {
   // 각 카드에 클릭 이벤트 핸들러 추가
   $(`#membercard-${docsId}`).click(function () {
     // 원하는 문서 ID
-    const desiredDocId = "docsId";
+    const desiredDocId = docsId;
 
     // 문서 ID를 URL에 추가하여 새로운 페이지로 이동
     const url = `member_card.html?id=${desiredDocId}`;
     window.location.href = url;
 
     // 현재 페이지의 URL에서 쿼리 문자열을 가져오기
-    const queryString = window.location.search;
+    // const queryString = window.location.search;
 
     // URL 매개변수에서 문서 ID 추출
-    const urlParams = new URLSearchParams(queryString);
-    const docId = urlParams.get("id");
+    // const urlParams = new URLSearchParams(queryString);
+    // const docId = urlParams.get("id");
 
-    console.log(docId);
+    // console.log(docId);
   });
 });
