@@ -32,10 +32,12 @@
 }
 
 #comments{
+  font-family:"Gowun Dodum";
   border-radius: 5px;
   border: 1px solid lightgrey;
   background-color: transparent;
-  width: 400px;
+  width: 300px;
+  height: 270px;
 }
 
 #comment_box{
