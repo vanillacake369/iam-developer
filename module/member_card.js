@@ -7,14 +7,15 @@ import {
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 import { db, storage } from "./firebase/firebase_config.js";
+import { deleteById } from "./member_delete.js";
+
+/* get "id" parameter from url */
+const url_str = window.location.href;
+const url = new URL(url_str);
+const id = url.searchParams.get("id");
 
 /* GET QUERY */
 try {
-  /* get "id" parameter from url */
-  const url_str = window.location.href;
-  const url = new URL(url_str);
-  const id = url.searchParams.get("id");
-
   /* make a select query */
   const q = await doc(db, "team", id);
 
@@ -68,10 +69,10 @@ try {
                   </div>
                   <div class="d-flex justify-content-end mb-4">
                     <div class="d-flex justify-content-between">
-                      <!-- link to ./member_modify.html -->
+                      <!-- link to ./member_update.html -->
                       <a
                         class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!" id="updatePageBtn"
+                        href="./member_update.html?id=${id}" id="updatePageBtn"
                       >
                         <div
                           class="d-inline-block bi bi-pencil-square me-0"
@@ -80,7 +81,7 @@ try {
                       <!-- link to ./member_delete.html -->
                       <a
                         class="btn btn-primary mx-2 px-4 py-3 hoverButton"
-                        href="#!" id="deleteBtn"
+                        href="#" id="deleteBtn"
                       >
                         <div class="d-inline-block bi bi-trash3 me-0"></div>
                       </a>
@@ -88,6 +89,13 @@ try {
                   </div>`;
     $("#card-container").append(temp_html);
   }
+
+  /* Add "DELETE" event listener */
+  const deleteElement = document.getElementById("deleteBtn");
+  deleteElement.addEventListener("click", (event) => {
+    deleteById(id);
+    console.log("클릭되었다");
+  });
 } catch (e) {
   console.log(e);
 }
