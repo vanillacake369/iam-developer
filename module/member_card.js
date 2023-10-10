@@ -34,7 +34,12 @@ try {
     let strength = mem_info_row["strength"];
     let work_style = mem_info_row["work_style"];
     let blog_url = mem_info_row["blog_url"];
-    let image_url = await getDownloadURL(storageRef);
+    let image_url;
+    try {
+      image_url = await getDownloadURL(storageRef);
+    } catch (err) {
+      image_url = "https://dummyimage.com/300x400/343a40/6c757d";
+    }
 
     console.log("image_url : " + image_url);
 
