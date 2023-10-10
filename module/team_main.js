@@ -6,9 +6,10 @@ import {
   addDoc,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { key } from "../firebase/firebase_key.js";
 
 // Firebase 인스턴스 초기화
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(key);
 const db = getFirestore(app);
 
 let docs = await getDocs(collection(db, "team"));
@@ -41,7 +42,7 @@ docs.forEach((doc) => {
   // 각 카드에 클릭 이벤트 핸들러 추가
   $(`#membercard-${docsId}`).click(function () {
     // 원하는 문서 ID
-    const desiredDocId = "docsId";
+    const desiredDocId = docsId;
 
     // 문서 ID를 URL에 추가하여 새로운 페이지로 이동
     const url = `member_card.html?id=${desiredDocId}`;

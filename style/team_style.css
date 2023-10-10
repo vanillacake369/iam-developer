@@ -32,5 +32,16 @@
 }
 
 #comments{
-  background-color: aqua;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  background-color: transparent;
+  width: 400px;
+}
+
+#comment_box{
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  width: auto;
+  height: 100px;
+  overflow: auto;
 }
