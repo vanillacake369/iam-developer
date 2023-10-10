@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -15,15 +16,24 @@
     <link href="../style/team_style.css" rel="stylesheet" />
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <!--Team_Main JS-->
     <script type="module" src="../module/team_main.js"></script>
-
+    <script type="module" src="../module/comments.js"></script>
     <title>나도 개발자</title>
   </head>
   <body>
     <div class="container col-xxl-8 px-4 py-5">
       <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <div class="col-10 col-sm-8 col-lg-6">
+        <div id="comments">
+          방명록
+          <div class="form-floating">
+            <input id="nickname" style="width: 80px;" placeholder="이름">
+            <textarea id="comment_text" style="width: 180px;" placeholder="내용"></textarea>
+            <button id="comment_save" class="btn btn-outline-danger">입력</button>
+          </div>
+          <div id="comment_box"></div>
+        </div>
+        <div class="col-10 col-sm-8 col-lg-5">
           <img
             src="../logo.png"
             class="d-block mx-lg-auto img-fluid"
@@ -33,7 +43,7 @@
             loading="lazy"
           />
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
             "나는 개발자"
           </h1>
