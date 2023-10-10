@@ -69,6 +69,8 @@
 
         console.log(docsId);
 
+
+
         // 각 카드에 클릭 이벤트 핸들러 추가
         $(`#membercard-${docsId}`).click(function () {
           // 원하는 문서 ID
@@ -110,6 +112,14 @@
             "나는 개발자"
           </h1>
           <p class="lead">사전 교육에서 모인 열정 넘치는 4인의 개발팀입니다</p>
+        </div>
+        <div class="col-lg"id="comments">
+          방명록
+          <div class="form-floating">
+            <input id="nickname" placeholder="이름">
+            <input id="comment_text" placeholder="내용">
+            <button id="comment_save" class="btn btn-outline-primary">등록</button>
+          </div>
         </div>
       </div>
     </div>
